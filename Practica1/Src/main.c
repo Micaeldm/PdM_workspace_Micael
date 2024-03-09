@@ -82,7 +82,7 @@ int main(void)
 
 	  if(BSP_PB_GetState(BUTTON_USER)){
 	  			HAL_Delay(100);
-              //val=1;
+
               if(val==1)
             	  val=0;
               else

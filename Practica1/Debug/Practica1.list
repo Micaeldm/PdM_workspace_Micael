@@ -3764,7 +3764,7 @@ int main(void)
 	  			HAL_Delay(100);
  8001870:	2064      	movs	r0, #100	; 0x64
  8001872:	f7fe fff9 	bl	8000868 <HAL_Delay>
-              //val=1;
+
               if(val==1)
  8001876:	79fb      	ldrb	r3, [r7, #7]
  8001878:	2b01      	cmp	r3, #1
