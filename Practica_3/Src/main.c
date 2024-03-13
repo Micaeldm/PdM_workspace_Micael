@@ -85,8 +85,8 @@ int main(void)
   /* Definiciones */
    delay_t t1, t2, t3;
    tick_t Ti1=1000;
-   tick_t Ti2=100;
-   tick_t Ti3=100;
+   tick_t Ti2=300;
+   tick_t Ti3=200;
    tick_t cont=0;
 
 
