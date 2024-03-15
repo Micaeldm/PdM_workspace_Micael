@@ -122,8 +122,8 @@ int main(void)
 		if (delayRead(&t2))
 			BSP_LED_Toggle(LED2);
 
-		if (delayRead(&t3)){}
-			//BSP_LED_Toggle(LED3);
+		if (delayRead(&t3))
+			BSP_LED_Toggle(LED3);
 	}
 
 }
