@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include "stm32f4xx_hal.h"  		/* <- HAL include */
 #include "stm32f4xx_nucleo_144.h" 	/* <- BSP include */
-#include "stdbool.h"
+//#include "stdbool.h"
 
 
 
@@ -52,10 +52,10 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-typedef uint32_t tick_t; // Qué biblioteca se debe incluir para que esto compile?
-typedef bool bool_t;	  // Qué biblioteca se debe incluir para que esto compile?
+//typedef uint32_t tick_t; // Qué biblioteca se debe incluir para que esto compile?
+//typedef bool bool_t;	  // Qué biblioteca se debe incluir para que esto compile?
 
-typedef struct{
+/*typedef struct{
    tick_t startTime;
    tick_t duration;
    bool_t running;
@@ -64,7 +64,7 @@ typedef struct{
 void delayInit( delay_t * delay, tick_t duration );
 
  bool_t delayRead( delay_t * delay );
- void delayWrite( delay_t * delay, tick_t duration );
+ void delayWrite( delay_t * delay, tick_t duration );*/
 #endif /* __MAIN_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

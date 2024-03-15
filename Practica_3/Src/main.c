@@ -22,6 +22,7 @@
 #include "main.h"
 #include "stdbool.h"
 #include "stdint.h"
+#include <API_delay.h>
 
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
@@ -97,74 +98,36 @@ int main(void)
 
 
   /* Infinite loop */
-  while (1)
-  {
+	while (1) {
 
-	  if(delayRead(&t1)){
-	 		 BSP_LED_Toggle(LED1);
-	 		cont++;
-	  }
+		if (delayRead(&t1)) {
+			BSP_LED_Toggle(LED1);
+			cont++;
+		}
 
-	 		if(cont==5){                   //punto 3 del practico
-	  				delayWrite(&t1,100);
-	  				//BSP_LED_Toggle(LED2);
-                       }
+		if (cont == 5) {                   //punto 3 del practico
+			delayWrite(&t1, 100);
+			//BSP_LED_Toggle(LED2);
+		}
 
-	 		if(cont==10){
-	            delayWrite(&t1,200);
-	                	  }
+		if (cont == 10) {
+			delayWrite(&t1, 200);
+		}
 
-	 		if(cont==15){
-	 		   delayWrite(&t1,1000);
-	 			      cont=0;
-	 			 }
+		if (cont == 15) {
+			delayWrite(&t1, 1000);
+			cont = 0;
+		}
 
+		if (delayRead(&t2))
+			BSP_LED_Toggle(LED2);
 
-
-
-	 	  if(delayRead(&t2))
-	 		 BSP_LED_Toggle(LED2);
-
-	 	  if(delayRead(&t3))
-	 		BSP_LED_Toggle(LED3);
- }
+		if (delayRead(&t3)){}
+			//BSP_LED_Toggle(LED3);
+	}
 
 }
 
-void delayInit(delay_t *delay, tick_t duration) {
-  	delay->duration = duration;
-  	delay->running = false;
-  }
-
- bool_t delayRead( delay_t * delay ){
-
-	 tick_t diff=0;
-
-
-	 if(!delay->running){
-
-		  delay->startTime=HAL_GetTick(); //se asigna el valor cada 1mms
-		  delay->running = true;
-
-		 // return false;
-	  }
-
-	 diff=(HAL_GetTick() - delay->startTime);
-
-	 if (diff>= delay->duration) {
-
-			delay->running = false;
-
-			return true;
-		}
-		  else
-			return false;
-	  }
-
-
- void delayWrite(delay_t *delay, tick_t duration) {
- 	delay->duration = duration;
- }
 
 
 

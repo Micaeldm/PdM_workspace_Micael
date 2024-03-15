@@ -8,6 +8,12 @@
 #ifndef API_API_DELAY_H_
 #define API_API_DELAY_H_
 
+#include <stdio.h>
+#include <stm32f4xx_hal.h>		/* <- HAL include */
+//#include "stm32f4xx_nucleo_144.h" 	/* <- BSP include */
+#include <stdbool.h>
+
+
 typedef uint32_t tick_t; // Qué biblioteca se debe incluir para que esto compile?
 typedef bool bool_t;	  // Qué biblioteca se debe incluir para que esto compile?
 
