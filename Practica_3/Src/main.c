@@ -24,6 +24,11 @@
 #include "stdint.h"
 #include <API_delay.h>
 
+#define   Ti1 1000 //DECLARO MACROS
+#define   Ti2 500
+#define   Ti3 2000
+
+delay_t t1, t2, t3;
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
   */
@@ -84,10 +89,10 @@ int main(void)
   BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
 
   /* Definiciones */
-   delay_t t1, t2, t3;
-   tick_t Ti1=1000;
-   tick_t Ti2=300;
-   tick_t Ti3=200;
+  // delay_t t1, t2, t3;
+  // tick_t Ti1=1000;
+  // tick_t Ti2=300;
+   //tick_t Ti3=200;
    tick_t cont=0;
 
 
@@ -206,7 +211,7 @@ static void SystemClock_Config(void)
   */
 static void Error_Handler(void)
 {
-  /* Turn LED2 on */
+  // Turn LED2 on
   BSP_LED_On(LED2);
   while (1)
   {
