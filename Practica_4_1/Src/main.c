@@ -24,9 +24,9 @@
 #include "stdint.h"
 #include <API_delay.h>
 
-#define   Ti1 1000 //DECLARO MACROS
-#define   Ti2 500
-#define   Ti3 2000
+//#define   Ti1 1000 //DECLARO MACROS
+//#define   Ti2 500
+//#define   Ti3 2000
 
 #define   Time_AntiRebote 40
 
@@ -109,16 +109,7 @@ int main(void) {
 	debounceFSM_init(); // Inicializa la máquina de estados
 
 
-
-	/* Definiciones */
-	// delay_t t1, t2, t3;
-	// tick_t Ti1=1000;
-	// tick_t Ti2=300;
-	//tick_t Ti3=200;
-	//tick_t cont = 0;
-
-	/* No bloqueante delay configuración */
-	delayInit(&t1, Time_AntiRebote);
+	delayInit(&t1, Time_AntiRebote);// Inicializa la máquina deL TIEMPO
 	//  delayInit(&t2, Ti2);
 	//  delayInit(&t3, Ti3);
 
@@ -126,8 +117,6 @@ int main(void) {
 	while (1) {
 
 		debounceFSM_update();
-
-
 
 	}
 
@@ -137,8 +126,6 @@ void debounceFSM_init() {
 	EstadoActual = BUTTON_UP;
 	delayInit(&t1, Time_AntiRebote);
 }
-
-
 
 void debounceFSM_update() {
 
@@ -155,7 +142,7 @@ void debounceFSM_update() {
 	case BUTTON_FALLING:
 
 		if (delayRead(&t1)) { // se cumplio los 40 ms
-			if (BSP_PB_GetState(BUTTON_USER)) {  //SI ESTA PRESIONADO PRENDO EL LED
+			if (BSP_PB_GetState(BUTTON_USER)) { //SI ESTA PRESIONADO PRENDO EL LED
 				//delayRead(&t1);
 				//BSP_LED_On(LED1);
 				buttonPressed();
@@ -189,10 +176,7 @@ void debounceFSM_update() {
 			break;
 
 			default:
-			//Si algo modificó la variable estadoActual
-			// a un estado no válido llevo la MEF a un
-			// lugar seguro, por ejemplo, la reinicio:
-			//controlDeErrores();
+
 			debounceFSM_init();
 
 			break;
@@ -202,12 +186,12 @@ void debounceFSM_update() {
 
 }
 
-void buttonPressed(){
+void buttonPressed() {
 
 	BSP_LED_On(LED1);
 }
 
-void buttonReleased(){
+void buttonReleased() {
 	BSP_LED_Off(LED1);
 }
 
