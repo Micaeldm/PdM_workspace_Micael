@@ -3913,7 +3913,7 @@ void debounceFSM_update() {
  8001934:	701a      	strb	r2, [r3, #0]
 		}
 
-		//delayWrite(&t1, Time_AntiRebote);
+
 		break;
  8001936:	e01c      	b.n	8001972 <debounceFSM_update+0xbe>
 	case BUTTON_RAISING:

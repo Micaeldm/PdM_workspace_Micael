@@ -160,7 +160,7 @@ void debounceFSM_update() {
 			EstadoActual = BUTTON_RAISING;
 		}
 
-		//delayWrite(&t1, Time_AntiRebote);
+
 		break;
 	case BUTTON_RAISING:
 
