@@ -5,6 +5,7 @@
  *      Author: micael
  */
 #include <API_AHT10.h>
+//#include <API_AHT10_port.h>
 
 #define time 100
 #define AHT10_ADRESS (0x38 << 1) // 0b1110000; Adress[7-bit]Wite/Read[1-bit]
@@ -51,6 +52,7 @@ float AHT10_Temp(){
 
 		HAL_Delay(100); // Delay must be > 75 ms
 	    HAL_I2C_Master_Receive(&hi2c2, AHT10_ADRESS, (uint8_t*)DATA_RX, 6,time);
+
 		AHT10_ADC = (((uint32_t) DATA_RX[3] & 15) << 16) | ((uint32_t) DATA_RX[4] << 8) | DATA_RX[5];
 		Temperature = (float) (AHT10_ADC * 200.00 / 1048576.00) - 50;
 

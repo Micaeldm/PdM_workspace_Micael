@@ -107,7 +107,7 @@ int main(void) {
 
 	GPIO_Init();
 	I2C_Init();
-
+	uartInit();
 
 
 	//Conf_update_Uart();
