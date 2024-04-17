@@ -11468,7 +11468,7 @@ int main(void) {
 	//Conf_update_Uart();
 	Conf_update();
  8004dee:	f7fc fbf5 	bl	80015dc <Conf_update>
-	//Lcd_Init(); //verificar xq cambiando de lugar no funciona bien
+	//Lcd_Init();
 
 	TEMPFSM_init(&conf_T);
  8004df2:	480c      	ldr	r0, [pc, #48]	; (8004e24 <main+0x6c>)

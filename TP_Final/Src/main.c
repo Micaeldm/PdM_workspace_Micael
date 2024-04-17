@@ -34,10 +34,7 @@
 #include <API_i2c.h>
 #include <API_TempConfig.h>
 
-//#include <I2C.h>
-//#include <Lcd_I2C.h>
-//#include "gpio.h"
-//#include "lcd_i2c.h"
+
 
 
 
@@ -112,7 +109,7 @@ int main(void) {
 
 	//Conf_update_Uart();
 	Conf_update();
-	//Lcd_Init(); //verificar xq cambiando de lugar no funciona bien
+	//Lcd_Init();
 
 	TEMPFSM_init(&conf_T);
 
