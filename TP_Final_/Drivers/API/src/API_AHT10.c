@@ -5,16 +5,28 @@
  *      Author: micael
  */
 #include <API_AHT10.h>
-//#include <API_AHT10_port.h>
 
-#define time 100
+#define time 			100
+#define size2 			3
+#define size3 			6
+#define Delay_100ms 	100
 #define AHT10_ADRESS (0x38 << 1) // 0b1110000; Adress[7-bit]Wite/Read[1-bit]
 
-static uint8_t DATA_RX[6];
+static uint8_t DATA_RX[size3];
 static uint32_t AHT10_ADC;
 static float Temperature;
-//static float Humidity;
-static uint8_t AHT10_Config[3] = {0xAC, 0x33, 0x00}; //configuracion
+static const float valor2exp20 = 1048576.00;
+static const float valor200 = 200.00;
+static const float valor50 = 50.00;
+static const uint32_t shift_8 = 8;
+static const uint32_t shift_16 = 16;
+static const uint32_t dec_15 = 15;
+
+//int size= sizeof DATA_RX/ sizeof DATA_RX[0];
+static uint8_t AHT10_Config[size2] =
+    {
+    0xAC, 0x33, 0x00
+    }; //configuracion
 
 extern I2C_HandleTypeDef hi2c2;
 
@@ -24,48 +36,42 @@ static void Error_Handler(void);
 
 static void Error_Handler(void)
 {
-  /* Turn LED2 on */
-  BSP_LED_On(LED2);
-  while (1)
-  {
-  }
+
+	BSP_LED_On(LED1);
+	BSP_LED_On(LED2);
+	BSP_LED_On(LED3);
+	while (1)
+	{
+	}
 }
 
-/*void AHT10_Init(){
+static void DelayAHt10(uint32_t Delay_ms);
 
-	returnValue1=HAL_I2C_Master_Transmit(&hi2c2, AHT10_ADRESS, (uint8_t*)AHT10_Config,3, time);
-	if(returnValue1 != HAL_OK){
-			Error_Handler();
-		}
+static void DelayAHt10(uint32_t Delay_ms)
+{
+	HAL_Delay(Delay_ms);
+}
 
-	HAL_Delay(100); // Delay must be > 75 ms
-	HAL_I2C_Master_Receive(&hi2c2, AHT10_ADRESS, (uint8_t*)DATA_RX, 6,time);
-}*/
-
-float AHT10_Temp(){
+float AHT10_Temp()
+{
 
 	/* Convert to Temperature in °C */
-	returnValue1=HAL_I2C_Master_Transmit(&hi2c2, AHT10_ADRESS, (uint8_t*)AHT10_Config,3, time);
-		if(returnValue1 != HAL_OK){
-				Error_Handler();
-			}
+	returnValue1 = HAL_I2C_Master_Transmit(&hi2c2, AHT10_ADRESS,
+			(uint8_t*) AHT10_Config, sizeof(AHT10_Config), time);
+	if (returnValue1 != HAL_OK)
+	{
+		Error_Handler();
+	}
 
-		HAL_Delay(100); // Delay must be > 75 ms
-	    HAL_I2C_Master_Receive(&hi2c2, AHT10_ADRESS, (uint8_t*)DATA_RX, 6,time);
+	DelayAHt10(Delay_100ms);
+	HAL_I2C_Master_Receive(&hi2c2, AHT10_ADRESS, (uint8_t*) DATA_RX,
+			sizeof(DATA_RX), time);
 
-		AHT10_ADC = (((uint32_t) DATA_RX[3] & 15) << 16) | ((uint32_t) DATA_RX[4] << 8) | DATA_RX[5];
-		Temperature = (float) (AHT10_ADC * 200.00 / 1048576.00) - 50;
+	AHT10_ADC = (((uint32_t) DATA_RX[3] & dec_15) << shift_16) | ((uint32_t) DATA_RX[4] << shift_8) | DATA_RX[5];
+	Temperature = (float) (AHT10_ADC * valor200 / valor2exp20) - valor50;
 
-		return Temperature;
+
+	return Temperature;
 }
 
 
-/*float AHT10_Humidity(){
-
-
-
-	    AHT10_ADC = ((uint32_t) DATA_RX[1] << 12)	| ((uint32_t) DATA_RX[2] << 4) | (DATA_RX[3] >> 4);
-		Humidity = (float) (AHT10_ADC* 100.00 / 1048576.00);
-
-		return Humidity;
-}*/

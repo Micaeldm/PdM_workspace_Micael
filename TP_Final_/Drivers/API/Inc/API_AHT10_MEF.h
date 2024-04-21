@@ -20,18 +20,18 @@ typedef struct{
 
 	float  temp_min;
 	float  temp_normal;
-    float  temp_max;
+	float  temp_max;
 
 
 }conf_temp;
 
- void TEMPFSM_init();
- void TEMPFSM_update(conf_temp *conf_T);
- void buttonPressed1();
+void TEMPFSM_init();
+void TEMPFSM_update(conf_temp *conf_T);
+void buttonPressed1();
 
- void buttonReleased1();
- bool_t  Detecto_TempHigh();
- bool_t  Detecto_TempLow();
+void buttonReleased1();
+bool_t  Detecto_TempHigh();
+bool_t  Detecto_TempLow();
 
 
 

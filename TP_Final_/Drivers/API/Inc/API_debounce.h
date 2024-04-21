@@ -17,16 +17,16 @@
 
 typedef bool bool_t;
 
- void debounceFSM_init();
- void debounceFSM_update();
- void buttonPressed();
+void debounceFSM_init();
+void debounceFSM_update();
+void buttonPressed();
 
- void buttonReleased();
+void buttonReleased();
 
- // Devuelve true si se detecto una pulsacion del botón (flanco negativo).
- bool_t readKey_Up();
- bool_t readKey_Down();
- bool_t readKey_enter();
+// Devuelve true si se detecto una pulsacion del botón (flanco negativo).
+bool_t readKey_Up();
+bool_t readKey_Down();
+bool_t readKey_enter();
 
 //bool_t readKey();
 

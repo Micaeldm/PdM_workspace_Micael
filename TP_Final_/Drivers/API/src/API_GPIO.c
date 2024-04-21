@@ -40,15 +40,17 @@
         * EXTI
 */
 
-#define PORT_E     GPIOE
-#define PIN_E_10   GPIO_PIN_10
-#define PIN_E_12   GPIO_PIN_12
-#define PIN_E_14   GPIO_PIN_14
-#define PIN_E_15   GPIO_PIN_15
+#define PORT_E     			GPIOE
+#define PIN_E_10   			GPIO_PIN_10
+#define PIN_E_12   			GPIO_PIN_12
+#define PIN_E_14   			GPIO_PIN_14
+#define PIN_E_15   			GPIO_PIN_15
+#define PIN_E_11   			GPIO_PIN_11
+#define PIN_E_13   			GPIO_PIN_13
 
-#define GPIOD_CLK_EN   __HAL_RCC_GPIOD_CLK_ENABLE()
-#define GPIOB_CLK_EN    __HAL_RCC_GPIOB_CLK_ENABLE()
-#define GPIOE_CLK_EN    __HAL_RCC_GPIOE_CLK_ENABLE()
+#define GPIOD_CLK_EN   		__HAL_RCC_GPIOD_CLK_ENABLE()
+#define GPIOB_CLK_EN   		__HAL_RCC_GPIOB_CLK_ENABLE()
+#define GPIOE_CLK_EN    	__HAL_RCC_GPIOE_CLK_ENABLE()
 
 
 void GPIO_Init(void)
@@ -56,29 +58,36 @@ void GPIO_Init(void)
 
 
 	GPIO_InitTypeDef GPIO_InitStructE = {0};
+	GPIO_InitTypeDef GPIO_InitStruct_E = {0};
 
 
-  /* GPIO Ports Clock Enable */
- // __HAL_RCC_GPIOD_CLK_ENABLE();
- // __HAL_RCC_GPIOB_CLK_ENABLE();
- // __HAL_RCC_GPIOE_CLK_ENABLE();
+	/* GPIO Ports Clock Enable */
+	// __HAL_RCC_GPIOD_CLK_ENABLE();
+	// __HAL_RCC_GPIOB_CLK_ENABLE();
+	// __HAL_RCC_GPIOE_CLK_ENABLE();
 	GPIOD_CLK_EN;
 	GPIOB_CLK_EN;
 	GPIOE_CLK_EN;
 
-  /*Configure GPIO pins : PA1 PA2 */
-    GPIO_InitStructE.Pin = GPIO_PIN_10|GPIO_PIN_12|GPIO_PIN_14|GPIO_PIN_15;;
-    GPIO_InitStructE.Mode = GPIO_MODE_INPUT;
-    GPIO_InitStructE.Pull = GPIO_PULLUP;
-    GPIO_InitStructE.Speed = GPIO_SPEED_FAST;
-    HAL_GPIO_Init(PORT_E , &GPIO_InitStructE);
+	/*Configure GPIO pins : PA1 PA2 */
+	GPIO_InitStructE.Pin = GPIO_PIN_10|GPIO_PIN_12|GPIO_PIN_14|GPIO_PIN_15;;
+	GPIO_InitStructE.Mode = GPIO_MODE_INPUT;
+	GPIO_InitStructE.Pull = GPIO_PULLUP;
+	GPIO_InitStructE.Speed = GPIO_SPEED_FAST;
+	HAL_GPIO_Init(PORT_E , &GPIO_InitStructE);
 
+	  GPIO_InitStruct_E.Pin = GPIO_PIN_11|GPIO_PIN_13;
+	  GPIO_InitStruct_E.Mode = GPIO_MODE_OUTPUT_PP;
+	  GPIO_InitStruct_E.Pull = GPIO_NOPULL;
+	  GPIO_InitStruct_E.Speed = GPIO_SPEED_FAST;
+	HAL_GPIO_Init(PORT_E , &GPIO_InitStruct_E);
 }
 
 bool_t ButtonGet_1(){
 
 	//if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_10)){
-		if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_10 )){
+	if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_10 ))
+	{
 		return true;
 	}
 
@@ -89,7 +98,8 @@ bool_t ButtonGet_1(){
 bool_t ButtonGet_2(){
 
 	//if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_12))
-		if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_12 )){
+	if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_12 ))
+	{
 		return true;
 	}
 
@@ -100,7 +110,8 @@ bool_t ButtonGet_2(){
 bool_t ButtonGet_3(){
 
 	//if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_14))
-		if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_14 )){
+	if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_14 ))
+	{
 		return true;
 	}
 
@@ -111,12 +122,23 @@ bool_t ButtonGet_3(){
 bool_t ButtonGet_4(){
 
 	//if(!HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_15))
-		if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_15 )){
+	if(!HAL_GPIO_ReadPin(PORT_E ,PIN_E_15 ))
+	{
 		return true;
 	}
 
 
 	return false;
+}
+
+void Device_Cool()
+{
+	HAL_GPIO_TogglePin(PORT_E ,PIN_E_11 );
+}
+
+void Device_Heat()
+{
+	HAL_GPIO_TogglePin(PORT_E ,PIN_E_13 );
 }
 /* USER CODE BEGIN 2 */
 

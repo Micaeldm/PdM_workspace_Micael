@@ -31,5 +31,7 @@ bool_t ButtonGet_1();
 bool_t ButtonGet_2();
 bool_t ButtonGet_3();
 bool_t ButtonGet_4();
+void Device_Cool();
+void Device_Heat();
 
 #endif /* API_INC_API_GPIO_H_ */

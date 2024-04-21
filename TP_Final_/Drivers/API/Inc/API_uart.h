@@ -18,7 +18,7 @@
 typedef bool bool_t;
 
 /* User can use this section to tailor USARTx/UARTx instance used and associated
-   resources */
+ resources */
 /* Definition for USARTx clock resources */
 #define USARTx                           USART3
 #define USARTx_CLK_ENABLE()              __HAL_RCC_USART3_CLK_ENABLE();
@@ -38,7 +38,7 @@ typedef bool bool_t;
 
 #ifdef __GNUC__
 /* With GCC, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
+ set to 'Yes') calls __io_putchar() */
 #define GETCHAR_PROTOTYPE int __io_getchar(void)
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 #else
@@ -55,7 +55,6 @@ void uartSendString(uint8_t *pstring); /* Envia una cadena de caracteres por la 
 
 void uartSendStringSize(uint8_t *pstring, uint16_t size); /* Envia un string o cadena de caracteres por la uart, de longitud size = tamaño del array */
 
-void uartReceiveStringSize(uint8_t * pstring, uint16_t size); //recibe una cadena de longitud size y lo guarda en pstring
-
+void uartReceiveStringSize(uint8_t *pstring, uint16_t size); //recibe una cadena de longitud size y lo guarda en pstring
 
 #endif /* API_INC_API_UART_H_ */

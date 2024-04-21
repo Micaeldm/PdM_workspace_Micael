@@ -1,22 +1,22 @@
- /**
-  ******************************************************************************
-  * @file    UART/UART_Printf/Src/main.c
-  * @author  MCD Application Team
-  * @brief   This example shows how to retarget the C library printf function
-  *          to the UART.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+/**
+ ******************************************************************************
+ * @file    UART/UART_Printf/Src/main.c
+ * @author  MCD Application Team
+ * @brief   This example shows how to retarget the C library printf function
+ *          to the UART.
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Includes ------------------------------------------------------------------*/
 #include <API_AHT10.h>
@@ -36,17 +36,13 @@
 #include <API_TempConfig.h>
 #include <API_LCD_port.h>
 
-
-
-
-
 /** @addtogroup STM32F4xx_HAL_Examples
-  * @{
-  */
+ * @{
+ */
 
 /** @addtogroup UART_Printf
-  * @{
-  */
+ * @{
+ */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -65,18 +61,16 @@ static void Error_Handler(void);
 //void buttonPressed();   // cuando se presiona el botón, invierte el estado del LED1.
 //void buttonReleased();  //cuando se suelta el botón, invierte el estado del LED3.
 
-
-
 extern conf_temp conf_T;
 //static float data1=0;
 
 /* Private functions ---------------------------------------------------------*/
 
 /**
-  * @brief  Main program
-  * @param  None
-  * @retval None
-  */
+ * @brief  Main program
+ * @param  None
+ * @retval None
+ */
 int main(void) {
 	/* STM32F4xx HAL library initialization:
 	 - Configure the Flash prefetch
@@ -90,7 +84,7 @@ int main(void) {
 	 */
 
 	HAL_Init();
-	//setvbuf(stdin, NULL, _IONBF, 0); //svcanf para la uart
+	setvbuf(stdin, NULL, _IONBF, 0); //scanf para la uart
 
 	/* Configure the system clock to 180 MHz */
 	SystemClock_Config();
@@ -103,44 +97,35 @@ int main(void) {
 
 	debounceFSM_init(); // Inicializa la máquina de estados
 
-
 	GPIO_Init();
 	I2C_Init();
 	uartInit();
 	Lcd_Init();
 
 	Lcd_Clear();
-		//Lcd_Set_Cursor(2, 4);
-		// Lcd_Set_Cursor(1,1);
-		Lcd_Write_String(" TP Final PCSE",1,1);
-	//	Lcd_Set_Cursor(2, 2);
-		//Lcd_Write_String("Sensor AHT10",2,3);
-		//HAL_Delay(2000);
+
 
 	//Conf_update_Uart();
 	Conf_update(); //CONFIGURO LA TEMPERATURA
 
-
 	TEMPFSM_init(&conf_T);
 
-
-
-
-	while (1) {
+	while (1)
+	{
 
 		//debounceFSM_update();
 		TEMPFSM_update(&conf_T);
 
-		if(Detecto_TempHigh())
-			BSP_LED_Toggle(LED3);//se activa para enfria
-
-		if( Detecto_TempLow())
-			BSP_LED_Toggle(LED2);//se activa para calentar
-
-
-
-
-
+		if (Detecto_TempHigh())
+		{
+			Device_Cool();
+			BSP_LED_Toggle(LED3); //se activa para enfria
+		}
+		if (Detecto_TempLow())
+		{
+			BSP_LED_Toggle(LED2); //se activa para calentar
+		    Device_Heat();
+		}
 	}
 
 }
